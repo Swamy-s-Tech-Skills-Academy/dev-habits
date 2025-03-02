@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DevHabits.Api.Controllers;
 
