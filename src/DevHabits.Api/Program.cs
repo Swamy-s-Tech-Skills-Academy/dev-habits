@@ -1,4 +1,4 @@
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -6,7 +6,7 @@ builder.Services.AddControllers();
 
 builder.Services.AddOpenApi();
 
-var app = builder.Build();
+WebApplication? app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
@@ -17,4 +17,4 @@ app.UseHttpsRedirection();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
