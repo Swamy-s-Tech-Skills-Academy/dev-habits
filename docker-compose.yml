@@ -5,8 +5,8 @@ services:
       context: .
       dockerfile: src/DevHabits.Api/Dockerfile
     ports:
-      - 5000:8080
-      - 5001:8081
+      - 5001:8080
+      - 5002:8081
     # environment:
     # Seq
     # - OTEL_EXPORTER_OTLP_ENDPOINT=http://devhabit.seq:5341/ingest/otlp
