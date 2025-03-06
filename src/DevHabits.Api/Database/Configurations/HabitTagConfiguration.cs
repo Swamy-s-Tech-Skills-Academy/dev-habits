@@ -12,6 +12,7 @@ public sealed class HabitTagConfiguration : IEntityTypeConfiguration<HabitTag>
 
         // Already applied by the FK definition (Habit, Tag)
         builder.Property(h => h.HabitId).HasMaxLength(500);
+
         builder.Property(h => h.TagId).HasMaxLength(500);
 
         builder.HasOne<Tag>()
