@@ -1,7 +1,4 @@
-﻿using System.Dynamic;
-using DevHabits.Api.Database;
-using FluentValidation;
-using Microsoft.AspNetCore.JsonPatch;
+﻿using DevHabits.Api.Database;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

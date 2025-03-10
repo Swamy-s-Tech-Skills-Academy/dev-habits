@@ -2,6 +2,7 @@ using DevHabits.Api.Database;
 using DevHabits.Api.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Newtonsoft.Json.Serialization;
 using Npgsql;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
@@ -12,7 +13,13 @@ WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.ReturnHttpNotAcceptable = true;
+})
+.AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver =
+    new CamelCasePropertyNamesContractResolver())
+.AddXmlSerializerFormatters();
 
 builder.Services.AddOpenApi();
 
