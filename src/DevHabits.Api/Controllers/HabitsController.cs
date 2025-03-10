@@ -8,59 +8,57 @@ using Microsoft.EntityFrameworkCore;
 namespace DevHabit.Api.Controllers;
 
 [ApiController]
-[Route("habits")]
+[Route("api/habits")]
 public sealed class HabitsController(ApplicationDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetHabits(
-        [FromQuery] HabitsQueryParameters query,
-        SortMappingProvider sortMappingProvider,
-        DataShapingService dataShapingService)
+    public async Task<IActionResult> GetHabits()
     {
-        if (!sortMappingProvider.ValidateMappings<HabitDto, Habit>(query.Sort))
-        {
-            return Problem(
-                statusCode: StatusCodes.Status400BadRequest,
-                detail: $"The provided sort parameter isn't valid: '{query.Sort}'");
-        }
+        //if (!sortMappingProvider.ValidateMappings<HabitDto, Habit>(query.Sort))
+        //{
+        //    return Problem(
+        //        statusCode: StatusCodes.Status400BadRequest,
+        //        detail: $"The provided sort parameter isn't valid: '{query.Sort}'");
+        //}
 
-        if (!dataShapingService.Validate<HabitDto>(query.Fields))
-        {
-            return Problem(
-                statusCode: StatusCodes.Status400BadRequest,
-                detail: $"The provided data shaping fields aren't valid: '{query.Fields}'");
-        }
+        //if (!dataShapingService.Validate<HabitDto>(query.Fields))
+        //{
+        //    return Problem(
+        //        statusCode: StatusCodes.Status400BadRequest,
+        //        detail: $"The provided data shaping fields aren't valid: '{query.Fields}'");
+        //}
 
-        query.Search ??= query.Search?.Trim().ToLower();
+        //query.Search ??= query.Search?.Trim().ToLower();
 
-        SortMapping[] sortMappings = sortMappingProvider.GetMappings<HabitDto, Habit>();
+        //SortMapping[] sortMappings = sortMappingProvider.GetMappings<HabitDto, Habit>();
 
-        IQueryable<HabitDto> habitsQuery = dbContext
-            .Habits
-            .Where(h => query.Search == null ||
-                        h.Name.ToLower().Contains(query.Search) ||
-                        h.Description != null && h.Description.ToLower().Contains(query.Search))
-            .Where(h => query.Type == null || h.Type == query.Type)
-            .Where(h => query.Status == null || h.Status == query.Status)
-            .ApplySort(query.Sort, sortMappings)
-            .Select(HabitQueries.ProjectToDto());
+        //IQueryable<HabitDto> habitsQuery = dbContext
+        //    .Habits
+        //    .Where(h => query.Search == null ||
+        //                h.Name.ToLower().Contains(query.Search) ||
+        //                h.Description != null && h.Description.ToLower().Contains(query.Search))
+        //    .Where(h => query.Type == null || h.Type == query.Type)
+        //    .Where(h => query.Status == null || h.Status == query.Status)
+        //    .ApplySort(query.Sort, sortMappings)
+        //    .Select(HabitQueries.ProjectToDto());
 
-        int totalCount = await habitsQuery.CountAsync();
+        //int totalCount = await habitsQuery.CountAsync();
 
-        List<HabitDto> habits = await habitsQuery
-            .Skip((query.Page - 1) * query.PageSize)
-            .Take(query.PageSize)
-            .ToListAsync();
+        //List<HabitDto> habits = await habitsQuery
+        //    .Skip((query.Page - 1) * query.PageSize)
+        //    .Take(query.PageSize)
+        //    .ToListAsync();
 
-        var paginationResult = new PaginationResult<ExpandoObject>
-        {
-            Items = dataShapingService.ShapeCollectionData(habits, query.Fields),
-            Page = query.Page,
-            PageSize = query.PageSize,
-            TotalCount = totalCount
-        };
+        //var paginationResult = new PaginationResult<ExpandoObject>
+        //{
+        //    Items = dataShapingService.ShapeCollectionData(habits, query.Fields),
+        //    Page = query.Page,
+        //    PageSize = query.PageSize,
+        //    TotalCount = totalCount
+        //};
 
-        return Ok(paginationResult);
+        List<DevHabits.Api.Entities.Habit> habits = await dbContext.Habits.ToListAsync();
+        return Ok(habits);
     }
 
     //[HttpGet("{id}")]
