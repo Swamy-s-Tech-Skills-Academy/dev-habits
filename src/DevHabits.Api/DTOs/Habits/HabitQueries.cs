@@ -1,5 +1,5 @@
 ﻿using System.Linq.Expressions;
-using DevHabit.Api.Entities;
+using DevHabits.Api.Entities;
 
 namespace DevHabits.Api.DTOs.Habits;
 
