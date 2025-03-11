@@ -8,3 +8,9 @@ Accept: application/json
 GET {{DevHabits.Api_HostAddress}}/openapi/v1.json
 Accept: application/json
 
+###
+
+GET {{DevHabits.Api_HostAddress}}/api/habits
+Accept: application/json
+
+###
