@@ -1,4 +1,5 @@
 ﻿using DevHabits.Api.Database;
+using DevHabits.Api.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,6 +12,10 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
     [HttpGet]
     public async Task<IActionResult> GetHabits()
     {
+        List<Habit> habits = await dbContext.Habits.ToListAsync();
+
+        return Ok(habits);
+
         //if (!sortMappingProvider.ValidateMappings<HabitDto, Habit>(query.Sort))
         //{
         //    return Problem(
@@ -53,9 +58,6 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         //    PageSize = query.PageSize,
         //    TotalCount = totalCount
         //};
-
-        List<DevHabits.Api.Entities.Habit> habits = await dbContext.Habits.ToListAsync();
-        return Ok(habits);
     }
 
     //[HttpGet("{id}")]
