@@ -1,4 +1,5 @@
 ﻿using DevHabits.Api.Database;
+using DevHabits.Api.DTOs.Habits;
 using DevHabits.Api.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +13,37 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
     [HttpGet]
     public async Task<IActionResult> GetHabits()
     {
-        List<Habit> habits = await dbContext.Habits.ToListAsync();
+        List<HabitDto> habits = await dbContext
+            .Habits
+            .Select(h => new HabitDto
+            {
+                Id = h.Id,
+                Name = h.Name,
+                Description = h.Description,
+                Type = h.Type,
+                Frequency = new FrequencyDto
+                {
+                    Type = h.Frequency.Type,
+                    TimesPerPeriod = h.Frequency.TimesPerPeriod
+                },
+                Target = new TargetDto
+                {
+                    Value = h.Target.Value,
+                    Unit = h.Target.Unit
+                },
+                Status = h.Status,
+                IsArchived = h.IsArchived,
+                EndDate = h.EndDate,
+                Milestone = h.Milestone == null ? null : new MilestoneDto
+                {
+                    Target = h.Milestone.Target,
+                    Current = h.Milestone.Current,
+                },
+                CreatedAtUtc = h.CreatedAtUtc,
+                UpdatedAtUtc = h.UpdatedAtUtc,
+                LastCompletedAtUtc = h.LastCompletedAtUtc
+            })
+            .ToListAsync();
 
         return Ok(habits);
 
