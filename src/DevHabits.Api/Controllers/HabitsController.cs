@@ -11,7 +11,7 @@ namespace DevHabits.Api.Controllers;
 public sealed class HabitsController(ApplicationDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<IActionResult> GetHabits()
+    public async Task<ActionResult<HabitDto>> GetHabits()
     {
         List<HabitDto> habits = await dbContext
             .Habits
