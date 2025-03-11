@@ -1,7 +1,7 @@
 ﻿using DevHabit.Api.Entities;
 using FluentValidation;
 
-namespace DevHabit.Api.DTOs.Habits;
+namespace DevHabits.Api.DTOs.Habits;
 
 public sealed class CreateHabitDtoValidator : AbstractValidator<CreateHabitDto>
 {

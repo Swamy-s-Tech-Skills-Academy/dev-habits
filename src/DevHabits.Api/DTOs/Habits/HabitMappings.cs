@@ -1,7 +1,7 @@
 ﻿using DevHabit.Api.Entities;
 using DevHabit.Api.Services.Sorting;
 
-namespace DevHabit.Api.DTOs.Habits;
+namespace DevHabits.Api.DTOs.Habits;
 
 internal static class HabitMappings
 {

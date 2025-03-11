@@ -1,4 +1,4 @@
-﻿namespace DevHabit.Api.DTOs.HabitTags;
+﻿namespace DevHabits.Api.DTOs.HabitTags;
 
 public sealed record UpsertHabitTagsDto
 {

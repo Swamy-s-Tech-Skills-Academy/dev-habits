@@ -1,6 +1,6 @@
-using DevHabit.Api.DTOs.Common;
+using DevHabits.Api.DTOs.Common;
 
-namespace DevHabit.Api.DTOs.Tags;
+namespace DevHabits.Api.DTOs.Tags;
 
 public sealed record TagsCollectionDto : ICollectionResponse<TagDto>
 {

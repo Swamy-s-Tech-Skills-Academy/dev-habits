@@ -1,7 +1,7 @@
 ﻿using DevHabit.Api.Entities;
 using Microsoft.AspNetCore.Mvc;
 
-namespace DevHabit.Api.DTOs.Habits;
+namespace DevHabits.Api.DTOs.Habits;
 
 public sealed record HabitsQueryParameters
 {

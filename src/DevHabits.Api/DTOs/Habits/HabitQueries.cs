@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using DevHabit.Api.Entities;
 
-namespace DevHabit.Api.DTOs.Habits;
+namespace DevHabits.Api.DTOs.Habits;
 
 internal static class HabitQueries
 {

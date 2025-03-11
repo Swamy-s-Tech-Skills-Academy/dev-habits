@@ -3,7 +3,7 @@ using DevHabits.Api.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevHabit.Api.Controllers;
+namespace DevHabits.Api.Controllers;
 
 [ApiController]
 [Route("api/habits")]
