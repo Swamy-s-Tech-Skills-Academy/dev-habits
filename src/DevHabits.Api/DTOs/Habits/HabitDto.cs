@@ -2,6 +2,12 @@
 
 namespace DevHabits.Api.DTOs.Habits;
 
+
+public sealed record HabitsCollectionDto
+{
+    public required List<HabitDto> Data { get; init; }
+}
+
 public sealed record HabitDto
 {
     public required string Id { get; init; }

@@ -11,7 +11,7 @@ namespace DevHabits.Api.Controllers;
 public sealed class HabitsController(ApplicationDbContext dbContext) : ControllerBase
 {
     [HttpGet]
-    public async Task<ActionResult<HabitDto>> GetHabits()
+    public async Task<ActionResult<HabitsCollectionDto>> GetHabits()
     {
         List<HabitDto> habits = await dbContext
             .Habits
@@ -45,7 +45,12 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
             })
             .ToListAsync();
 
-        return Ok(habits);
+        var habitsCollectionDto = new HabitsCollectionDto
+        {
+            Data = habits
+        };
+
+        return Ok(habitsCollectionDto);
 
         //if (!sortMappingProvider.ValidateMappings<HabitDto, Habit>(query.Sort))
         //{
@@ -91,34 +96,70 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         //};
     }
 
-    //[HttpGet("{id}")]
-    //public async Task<IActionResult> GetHabit(
-    //    string id,
-    //    string? fields,
-    //    DataShapingService dataShapingService)
-    //{
-    //    if (!dataShapingService.Validate<HabitWithTagsDto>(fields))
-    //    {
-    //        return Problem(
-    //            statusCode: StatusCodes.Status400BadRequest,
-    //            detail: $"The provided data shaping fields aren't valid: '{fields}'");
-    //    }
+    [HttpGet("{id}")]
+    public async Task<ActionResult<HabitDto>> GetHabit(string id)
+    {
+        HabitDto? habit = await dbContext
+            .Habits
+            .Where(h => h.Id == id)
+            .Select(h => new HabitDto
+            {
+                Id = h.Id,
+                Name = h.Name,
+                Description = h.Description,
+                Type = h.Type,
+                Frequency = new FrequencyDto
+                {
+                    Type = h.Frequency.Type,
+                    TimesPerPeriod = h.Frequency.TimesPerPeriod
+                },
+                Target = new TargetDto
+                {
+                    Value = h.Target.Value,
+                    Unit = h.Target.Unit
+                },
+                Status = h.Status,
+                IsArchived = h.IsArchived,
+                EndDate = h.EndDate,
+                Milestone = h.Milestone == null ? null : new MilestoneDto
+                {
+                    Target = h.Milestone.Target,
+                    Current = h.Milestone.Current,
+                },
+                CreatedAtUtc = h.CreatedAtUtc,
+                UpdatedAtUtc = h.UpdatedAtUtc,
+                LastCompletedAtUtc = h.LastCompletedAtUtc
+            })
+            .FirstOrDefaultAsync();
 
-    //    HabitWithTagsDto? habit = await dbContext
-    //        .Habits
-    //        .Where(h => h.Id == id)
-    //        .Select(HabitQueries.ProjectToDtoWithTags())
-    //        .FirstOrDefaultAsync();
+        if (habit is null)
+        {
+            return NotFound();
+        }
 
-    //    if (habit is null)
-    //    {
-    //        return NotFound();
-    //    }
+        return Ok(habit);
+        //if (!dataShapingService.Validate<HabitWithTagsDto>(fields))
+        //{
+        //    return Problem(
+        //        statusCode: StatusCodes.Status400BadRequest,
+        //        detail: $"The provided data shaping fields aren't valid: '{fields}'");
+        //}
 
-    //    ExpandoObject shapedHabitDto = dataShapingService.ShapeData(habit, fields);
+        //HabitWithTagsDto? habit = await dbContext
+        //    .Habits
+        //    .Where(h => h.Id == id)
+        //    .Select(HabitQueries.ProjectToDtoWithTags())
+        //    .FirstOrDefaultAsync();
 
-    //    return Ok(shapedHabitDto);
-    //}
+        //if (habit is null)
+        //{
+        //    return NotFound();
+        //}
+
+        //ExpandoObject shapedHabitDto = dataShapingService.ShapeData(habit, fields);
+
+        //return Ok(shapedHabitDto);
+    }
 
     //[HttpPost]
     //public async Task<ActionResult<HabitDto>> CreateHabit(
