@@ -162,21 +162,20 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
     }
 
     [HttpPost]
-    public async Task<ActionResult<HabitDto>> CreateHabit(
-        CreateHabitDto createHabitDto,
-        IValidator<CreateHabitDto> validator)
+    public async Task<ActionResult<HabitDto>> CreateHabit(CreateHabitDto createHabitDto)
     {
-        await validator.ValidateAndThrowAsync(createHabitDto);
 
-        Habit habit = createHabitDto.ToEntity();
+        //await validator.ValidateAndThrowAsync(createHabitDto);
 
-        dbContext.Habits.Add(habit);
+        //Habit habit = createHabitDto.ToEntity();
 
-        await dbContext.SaveChangesAsync();
+        //dbContext.Habits.Add(habit);
 
-        HabitDto habitDto = habit.ToDto();
+        //await dbContext.SaveChangesAsync();
 
-        return CreatedAtAction(nameof(GetHabit), new { id = habitDto.Id }, habitDto);
+        //HabitDto habitDto = habit.ToDto();
+
+        //return CreatedAtAction(nameof(GetHabit), new { id = habitDto.Id }, habitDto);
     }
 
     //[HttpPut("{id}")]
