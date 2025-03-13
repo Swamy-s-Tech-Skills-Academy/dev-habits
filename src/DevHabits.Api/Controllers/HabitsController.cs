@@ -161,23 +161,23 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         //return Ok(shapedHabitDto);
     }
 
-    //[HttpPost]
-    //public async Task<ActionResult<HabitDto>> CreateHabit(
-    //    CreateHabitDto createHabitDto,
-    //    IValidator<CreateHabitDto> validator)
-    //{
-    //    await validator.ValidateAndThrowAsync(createHabitDto);
+    [HttpPost]
+    public async Task<ActionResult<HabitDto>> CreateHabit(
+        CreateHabitDto createHabitDto,
+        IValidator<CreateHabitDto> validator)
+    {
+        await validator.ValidateAndThrowAsync(createHabitDto);
 
-    //    Habit habit = createHabitDto.ToEntity();
+        Habit habit = createHabitDto.ToEntity();
 
-    //    dbContext.Habits.Add(habit);
+        dbContext.Habits.Add(habit);
 
-    //    await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
-    //    HabitDto habitDto = habit.ToDto();
+        HabitDto habitDto = habit.ToDto();
 
-    //    return CreatedAtAction(nameof(GetHabit), new { id = habitDto.Id }, habitDto);
-    //}
+        return CreatedAtAction(nameof(GetHabit), new { id = habitDto.Id }, habitDto);
+    }
 
     //[HttpPut("{id}")]
     //public async Task<ActionResult> UpdateHabit(string id, UpdateHabitDto updateHabitDto)
