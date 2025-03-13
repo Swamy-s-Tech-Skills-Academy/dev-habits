@@ -1,6 +1,5 @@
 ﻿using DevHabits.Api.Database;
 using DevHabits.Api.DTOs.Habits;
-using DevHabits.Api.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -161,23 +160,22 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         //return Ok(shapedHabitDto);
     }
 
-    //[HttpPost]
-    //public async Task<ActionResult<HabitDto>> CreateHabit(
-    //    CreateHabitDto createHabitDto,
-    //    IValidator<CreateHabitDto> validator)
-    //{
-    //    await validator.ValidateAndThrowAsync(createHabitDto);
+    [HttpPost]
+    public async Task<ActionResult<HabitDto>> CreateHabit(CreateHabitDto createHabitDto)
+    {
 
-    //    Habit habit = createHabitDto.ToEntity();
+        //await validator.ValidateAndThrowAsync(createHabitDto);
 
-    //    dbContext.Habits.Add(habit);
+        //Habit habit = createHabitDto.ToEntity();
 
-    //    await dbContext.SaveChangesAsync();
+        //dbContext.Habits.Add(habit);
 
-    //    HabitDto habitDto = habit.ToDto();
+        //await dbContext.SaveChangesAsync();
 
-    //    return CreatedAtAction(nameof(GetHabit), new { id = habitDto.Id }, habitDto);
-    //}
+        //HabitDto habitDto = habit.ToDto();
+
+        //return CreatedAtAction(nameof(GetHabit), new { id = habitDto.Id }, habitDto);
+    }
 
     //[HttpPut("{id}")]
     //public async Task<ActionResult> UpdateHabit(string id, UpdateHabitDto updateHabitDto)
