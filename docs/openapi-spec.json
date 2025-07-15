@@ -1,445 +1,445 @@
 {
-  "openapi": "3.0.1",
-  "info": {
-    "title": "DevHabits.Api | v1",
-    "version": "1.0.0"
-  },
-  "servers": [
-    {
-      "url": "https://localhost:5002/"
-    }
-  ],
-  "paths": {
-    "/api/habits": {
-      "get": {
-        "tags": [
-          "Habits"
-        ],
-        "summary": "Get all habits",
-        "description": "Retrieves a collection of all habits",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitsCollectionDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitsCollectionDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitsCollectionDto"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitsCollectionDto"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitsCollectionDto"
-                }
-              }
-            }
-          }
+    "openapi": "3.0.1",
+    "info": {
+        "title": "DevHabits.Api | v1",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://localhost:5002/"
         }
-      },
-      "post": {
-        "tags": [
-          "Habits"
-        ],
-        "summary": "Create a new habit",
-        "description": "Creates a new habit with the provided details",
-        "requestBody": {
-          "content": {
-            "application/json-patch+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateHabitDto"
-              }
+    ],
+    "paths": {
+        "/api/habits": {
+            "get": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Get all habits",
+                "description": "Retrieves a collection of all habits",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitsCollectionDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitsCollectionDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitsCollectionDto"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitsCollectionDto"
+                                }
+                            },
+                            "text/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitsCollectionDto"
+                                }
+                            }
+                        }
+                    }
+                }
             },
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateHabitDto"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateHabitDto"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateHabitDto"
-              }
-            },
-            "application/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateHabitDto"
-              }
-            },
-            "text/xml": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateHabitDto"
-              }
-            },
-            "application/*+xml": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateHabitDto"
-              }
+            "post": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Create a new habit",
+                "description": "Creates a new habit with the provided details",
+                "requestBody": {
+                    "content": {
+                        "application/json-patch+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateHabitDto"
+                            }
+                        },
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateHabitDto"
+                            }
+                        },
+                        "text/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateHabitDto"
+                            }
+                        },
+                        "application/*+json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateHabitDto"
+                            }
+                        },
+                        "application/xml": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateHabitDto"
+                            }
+                        },
+                        "text/xml": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateHabitDto"
+                            }
+                        },
+                        "application/*+xml": {
+                            "schema": {
+                                "$ref": "#/components/schemas/CreateHabitDto"
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            },
+                            "text/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            }
+                        }
+                    }
+                }
             }
-          },
-          "required": true
         },
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
+        "/api/habits/{id}": {
+            "get": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Get habit by ID",
+                "description": "Retrieves a specific habit by its unique identifier",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            },
+                            "text/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitDto"
+                                }
+                            }
+                        }
+                    }
                 }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
-                }
-              }
             }
-          }
-        }
-      }
-    },
-    "/api/habits/{id}": {
-      "get": {
-        "tags": [
-          "Habits"
-        ],
-        "summary": "Get habit by ID",
-        "description": "Retrieves a specific habit by its unique identifier",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "$ref": "#/components/schemas/HabitDto"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/WeatherForecast": {
-      "get": {
-        "tags": [
-          "WeatherForecast"
-        ],
-        "operationId": "GetWeatherForecast",
-        "summary": "Get weather forecast",
-        "description": "Retrieves weather forecast data (demo endpoint)",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "application/xml": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              },
-              "text/xml": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/WeatherForecast"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  },
-  "components": {
-    "schemas": {
-      "CreateHabitDto": {
-        "required": [
-          "name",
-          "type",
-          "frequency",
-          "target"
-        ],
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "type": {
-            "$ref": "#/components/schemas/HabitType"
-          },
-          "frequency": {
-            "$ref": "#/components/schemas/FrequencyDto"
-          },
-          "target": {
-            "$ref": "#/components/schemas/TargetDto"
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "milestone": {
-            "$ref": "#/components/schemas/MilestoneDto"
-          }
-        }
-      },
-      "FrequencyDto": {
-        "required": [
-          "type",
-          "timesPerPeriod"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "$ref": "#/components/schemas/FrequencyType"
-          },
-          "timesPerPeriod": {
-            "type": "integer",
-            "format": "int32"
-          }
-        }
-      },
-      "FrequencyType": {
-        "type": "integer"
-      },
-      "HabitDto": {
-        "required": [
-          "id",
-          "name",
-          "type",
-          "frequency",
-          "target",
-          "status",
-          "isArchived",
-          "createdAtUtc"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string",
-            "nullable": true
-          },
-          "type": {
-            "$ref": "#/components/schemas/HabitType"
-          },
-          "frequency": {
-            "$ref": "#/components/schemas/FrequencyDto"
-          },
-          "target": {
-            "$ref": "#/components/schemas/TargetDto"
-          },
-          "status": {
-            "$ref": "#/components/schemas/HabitStatus"
-          },
-          "isArchived": {
-            "type": "boolean"
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date",
-            "nullable": true
-          },
-          "milestone": {
-            "$ref": "#/components/schemas/MilestoneDto"
-          },
-          "createdAtUtc": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "updatedAtUtc": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "lastCompletedAtUtc": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          }
-        }
-      },
-      "HabitsCollectionDto": {
-        "required": [
-          "data"
-        ],
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/HabitDto"
-            }
-          }
-        }
-      },
-      "HabitStatus": {
-        "type": "integer"
-      },
-      "HabitType": {
-        "type": "integer"
-      },
-      "MilestoneDto": {
-        "required": [
-          "target",
-          "current"
-        ],
-        "type": "object",
-        "properties": {
-          "target": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "current": {
-            "type": "integer",
-            "format": "int32"
-          }
         },
-        "nullable": true
-      },
-      "TargetDto": {
-        "required": [
-          "value",
-          "unit"
-        ],
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "unit": {
-            "type": "string"
-          }
+        "/WeatherForecast": {
+            "get": {
+                "tags": [
+                    "WeatherForecast"
+                ],
+                "operationId": "GetWeatherForecast",
+                "summary": "Get weather forecast",
+                "description": "Retrieves weather forecast data (demo endpoint)",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "text/plain": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeatherForecast"
+                                    }
+                                }
+                            },
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeatherForecast"
+                                    }
+                                }
+                            },
+                            "text/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeatherForecast"
+                                    }
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeatherForecast"
+                                    }
+                                }
+                            },
+                            "text/xml": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/WeatherForecast"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
-      },
-      "WeatherForecast": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date"
-          },
-          "temperatureC": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "temperatureF": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "summary": {
-            "type": "string",
-            "nullable": true
-          }
-        }
-      }
-    }
-  },
-  "tags": [
-    {
-      "name": "Habits"
     },
-    {
-      "name": "WeatherForecast"
-    }
-  ]
+    "components": {
+        "schemas": {
+            "CreateHabitDto": {
+                "required": [
+                    "name",
+                    "type",
+                    "frequency",
+                    "target"
+                ],
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/HabitType"
+                    },
+                    "frequency": {
+                        "$ref": "#/components/schemas/FrequencyDto"
+                    },
+                    "target": {
+                        "$ref": "#/components/schemas/TargetDto"
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "format": "date",
+                        "nullable": true
+                    },
+                    "milestone": {
+                        "$ref": "#/components/schemas/MilestoneDto"
+                    }
+                }
+            },
+            "FrequencyDto": {
+                "required": [
+                    "type",
+                    "timesPerPeriod"
+                ],
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "$ref": "#/components/schemas/FrequencyType"
+                    },
+                    "timesPerPeriod": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                }
+            },
+            "FrequencyType": {
+                "type": "integer"
+            },
+            "HabitDto": {
+                "required": [
+                    "id",
+                    "name",
+                    "type",
+                    "frequency",
+                    "target",
+                    "status",
+                    "isArchived",
+                    "createdAtUtc"
+                ],
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "type": {
+                        "$ref": "#/components/schemas/HabitType"
+                    },
+                    "frequency": {
+                        "$ref": "#/components/schemas/FrequencyDto"
+                    },
+                    "target": {
+                        "$ref": "#/components/schemas/TargetDto"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/HabitStatus"
+                    },
+                    "isArchived": {
+                        "type": "boolean"
+                    },
+                    "endDate": {
+                        "type": "string",
+                        "format": "date",
+                        "nullable": true
+                    },
+                    "milestone": {
+                        "$ref": "#/components/schemas/MilestoneDto"
+                    },
+                    "createdAtUtc": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAtUtc": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "lastCompletedAtUtc": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    }
+                }
+            },
+            "HabitsCollectionDto": {
+                "required": [
+                    "data"
+                ],
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HabitDto"
+                        }
+                    }
+                }
+            },
+            "HabitStatus": {
+                "type": "integer"
+            },
+            "HabitType": {
+                "type": "integer"
+            },
+            "MilestoneDto": {
+                "required": [
+                    "target",
+                    "current"
+                ],
+                "type": "object",
+                "properties": {
+                    "target": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "current": {
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                },
+                "nullable": true
+            },
+            "TargetDto": {
+                "required": [
+                    "value",
+                    "unit"
+                ],
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "unit": {
+                        "type": "string"
+                    }
+                }
+            },
+            "WeatherForecast": {
+                "type": "object",
+                "properties": {
+                    "date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "temperatureC": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "temperatureF": {
+                        "type": "integer",
+                        "format": "int32"
+                    },
+                    "summary": {
+                        "type": "string",
+                        "nullable": true
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Habits"
+        },
+        {
+            "name": "WeatherForecast"
+        }
+    ]
 }

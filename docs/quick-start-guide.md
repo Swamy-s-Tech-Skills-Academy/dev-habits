@@ -5,12 +5,15 @@
 This guide will help you quickly get started with the DevHabits API.
 
 ### Base URL
+
 ```
 https://localhost:5002/
 ```
 
 ### OpenAPI Specification
+
 The OpenAPI specification is available at:
+
 ```
 https://localhost:5002/openapi/v1.json
 ```
@@ -20,12 +23,14 @@ https://localhost:5002/openapi/v1.json
 ### 1. Retrieve All Habits
 
 **Request:**
+
 ```http
 GET /api/habits
 Accept: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "data": [
@@ -60,12 +65,14 @@ Accept: application/json
 ### 2. Create a New Habit
 
 **Request:**
+
 ```http
 POST /api/habits
 Content-Type: application/json
 ```
 
 **Request Body:**
+
 ```json
 {
   "name": "Daily Exercise",
@@ -88,6 +95,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "id": "generated-id",
@@ -118,12 +126,14 @@ Content-Type: application/json
 ### 3. Get Specific Habit
 
 **Request:**
+
 ```http
 GET /api/habits/{id}
 Accept: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "id": "specific-habit-id",
@@ -156,15 +166,15 @@ Accept: application/json
 ### JavaScript/Node.js
 
 ```javascript
-const BASE_URL = 'https://localhost:5002';
+const BASE_URL = "https://localhost:5002";
 
 // Get all habits
 async function getAllHabits() {
   const response = await fetch(`${BASE_URL}/api/habits`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Accept': 'application/json'
-    }
+      Accept: "application/json",
+    },
   });
   return await response.json();
 }
@@ -172,12 +182,12 @@ async function getAllHabits() {
 // Create a new habit
 async function createHabit(habitData) {
   const response = await fetch(`${BASE_URL}/api/habits`, {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
+      "Content-Type": "application/json",
+      Accept: "application/json",
     },
-    body: JSON.stringify(habitData)
+    body: JSON.stringify(habitData),
   });
   return await response.json();
 }
@@ -185,10 +195,10 @@ async function createHabit(habitData) {
 // Get habit by ID
 async function getHabitById(id) {
   const response = await fetch(`${BASE_URL}/api/habits/${id}`, {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Accept': 'application/json'
-    }
+      Accept: "application/json",
+    },
   });
   return await response.json();
 }
@@ -245,19 +255,19 @@ import json
 BASE_URL = "https://localhost:5002"
 
 def get_all_habits():
-    response = requests.get(f"{BASE_URL}/api/habits", 
+    response = requests.get(f"{BASE_URL}/api/habits",
                           headers={"Accept": "application/json"})
     return response.json()
 
 def create_habit(habit_data):
-    response = requests.post(f"{BASE_URL}/api/habits", 
+    response = requests.post(f"{BASE_URL}/api/habits",
                            json=habit_data,
-                           headers={"Content-Type": "application/json", 
+                           headers={"Content-Type": "application/json",
                                   "Accept": "application/json"})
     return response.json()
 
 def get_habit_by_id(habit_id):
-    response = requests.get(f"{BASE_URL}/api/habits/{habit_id}", 
+    response = requests.get(f"{BASE_URL}/api/habits/{habit_id}",
                           headers={"Accept": "application/json"})
     return response.json()
 
