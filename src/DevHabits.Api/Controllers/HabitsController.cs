@@ -8,9 +8,17 @@ namespace DevHabits.Api.Controllers;
 
 [ApiController]
 [Route("api/habits")]
+[Produces("application/json")]
+[Tags("Habits")]
 public sealed class HabitsController(ApplicationDbContext dbContext) : ControllerBase
 {
+    /// <summary>
+    /// Retrieves all habits
+    /// </summary>
+    /// <returns>A collection of all habits</returns>
+    /// <response code="200">Returns the collection of habits</response>
     [HttpGet]
+    [ProducesResponseType<HabitsCollectionDto>(StatusCodes.Status200OK)]
     public async Task<ActionResult<HabitsCollectionDto>> GetHabits()
     {
         List<HabitDto> habits = await dbContext
@@ -26,7 +34,16 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         return Ok(habitsCollectionDto);
     }
 
+    /// <summary>
+    /// Retrieves a specific habit by ID
+    /// </summary>
+    /// <param name="id">The unique identifier of the habit</param>
+    /// <returns>The habit with the specified ID</returns>
+    /// <response code="200">Returns the habit</response>
+    /// <response code="404">If the habit is not found</response>
     [HttpGet("{id}")]
+    [ProducesResponseType<HabitDto>(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<ActionResult<HabitDto>> GetHabit(string id)
     {
         HabitDto? habit = await dbContext
@@ -43,7 +60,16 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         return Ok(habit);
     }
 
+    /// <summary>
+    /// Creates a new habit
+    /// </summary>
+    /// <param name="createHabitDto">The habit data to create</param>
+    /// <returns>The created habit</returns>
+    /// <response code="201">Returns the newly created habit</response>
+    /// <response code="400">If the habit data is invalid</response>
     [HttpPost]
+    [ProducesResponseType<HabitDto>(StatusCodes.Status201Created)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<ActionResult<HabitDto>> CreateHabit(CreateHabitDto createHabitDto)
     {
         //await validator.ValidateAndThrowAsync(createHabitDto);

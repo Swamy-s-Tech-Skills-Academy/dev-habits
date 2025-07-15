@@ -8,6 +8,7 @@ using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Scalar.AspNetCore;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,35 @@ builder.Services.AddControllers(options =>
     new CamelCasePropertyNamesContractResolver())
 .AddXmlSerializerFormatters();
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Info = new()
+        {
+            Title = "DevHabits API",
+            Version = "v1.0.0",
+            Description = "A comprehensive API for tracking and managing daily habits with progress monitoring, milestone tracking, and flexible frequency configuration.",
+            Contact = new()
+            {
+                Name = "DevHabits API Support",
+                Email = "support@devhabits.com"
+            },
+            License = new()
+            {
+                Name = "MIT License",
+                Url = new("https://opensource.org/licenses/MIT")
+            }
+        };
+
+        document.Servers = new List<Microsoft.OpenApi.Models.OpenApiServer>
+        {
+            new() { Url = "https://localhost:5002", Description = "Development server" }
+        };
+
+        return Task.CompletedTask;
+    });
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
@@ -52,6 +81,17 @@ WebApplication? app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    // Add Scalar UI
+    app.MapScalarApiReference(options =>
+    {
+        options
+            .WithTitle("DevHabits API Documentation")
+            .WithTheme(ScalarTheme.Kepler)
+            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
+            .WithPreferredScheme("https")
+            .WithSearchHotKey("Ctrl+K");
+    });
 
     await app.ApplyMigrationsAsync();
 }
