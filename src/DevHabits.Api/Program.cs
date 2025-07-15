@@ -43,11 +43,11 @@ builder.Services.AddOpenApi(options =>
             }
         };
 
-        //document.Servers =
-        //[
-        //    new() { Url = "https://localhost:5002", Description = "Development server" },
-        //    new() { Url = "https://localhost:5001", Description = "Development server (HTTP)" }
-        //];
+        document.Servers =
+        [
+           new() { Url = "https://localhost:5002", Description = "Development server" },
+           new() { Url = "https://localhost:5001", Description = "Development server (HTTP)" }
+        ];
 
         // Add tags for better organization
         document.Tags =
