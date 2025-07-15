@@ -43,10 +43,18 @@ builder.Services.AddOpenApi(options =>
             }
         };
 
-        document.Servers = new List<Microsoft.OpenApi.Models.OpenApiServer>
-        {
-            new() { Url = "https://localhost:5002", Description = "Development server" }
-        };
+        //document.Servers =
+        //[
+        //    new() { Url = "https://localhost:5002", Description = "Development server" },
+        //    new() { Url = "https://localhost:5001", Description = "Development server (HTTP)" }
+        //];
+
+        // Add tags for better organization
+        document.Tags =
+        [
+            new() { Name = "Habits", Description = "Operations related to habit management" },
+            new() { Name = "WeatherForecast", Description = "Demo weather forecast operations" }
+        ];
 
         return Task.CompletedTask;
     });
@@ -83,15 +91,18 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
 
     // Add Scalar UI
-    app.MapScalarApiReference(options =>
-    {
-        options
-            .WithTitle("DevHabits API Documentation")
-            .WithTheme(ScalarTheme.Kepler)
-            .WithDefaultHttpClient(ScalarTarget.CSharp, ScalarClient.HttpClient)
-            .WithPreferredScheme("https")
-            .WithSearchHotKey("Ctrl+K");
-    });
+    app.MapScalarApiReference();
+
+    //app.MapScalarApiReference(options =>
+    //{
+    //    options
+    //        .WithTitle("DevHabits API Documentation")
+    //        .WithTheme(ScalarTheme.BluePlanet)
+    //        .WithPreferredScheme("https")
+    //        .WithSearchHotKey("Ctrl+K")
+    //        .WithModels(true)
+    //        .WithDownloadButton(true);
+    //});
 
     await app.ApplyMigrationsAsync();
 }
