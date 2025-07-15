@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.14.35821.62
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		docs\api-documentation.md = docs\api-documentation.md
+		docs\openapi-spec.json = docs\openapi-spec.json
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{6D0B4CF0-2AD0-4646-8B1A-4F4EB35369E9}"
 EndProject
@@ -21,6 +25,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DevHabits.Api", "src\DevHabits.Api\DevHabits.Api.csproj", "{8912E135-190C-4151-8A5A-9A0CD43A8BEE}"
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{0C5901A0-EAB2-4BBF-8AA9-77C056048722}"
+	ProjectSection(SolutionItems) = preProject
+		docs\images\OpenAPI_json.PNG = docs\images\OpenAPI_json.PNG
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +51,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{8912E135-190C-4151-8A5A-9A0CD43A8BEE} = {6D0B4CF0-2AD0-4646-8B1A-4F4EB35369E9}
+		{0C5901A0-EAB2-4BBF-8AA9-77C056048722} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FDD6E80C-71FE-4B00-9F48-062AB85305DE}
