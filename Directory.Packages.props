@@ -31,8 +31,8 @@
     <PackageVersion Include="Quartz.Extensions.Hosting" Version="3.13.1" />
     <PackageVersion Include="Refit.HttpClientFactory" Version="8.0.0" />
     <PackageVersion Include="Refit.Newtonsoft.Json" Version="8.0.0" />
-    <PackageVersion Include="Scalar.AspNetCore" Version="2.0.18" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.13.0.120203" />
+    <PackageVersion Include="Scalar.AspNetCore" Version="2.6.1" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.14.0.120626" />
     <PackageVersion Include="Swashbuckle.AspNetCore" Version="7.2.0" />
     <PackageVersion Include="System.Linq.Dynamic.Core" Version="1.6.6" />
     <!-- Testing -->
