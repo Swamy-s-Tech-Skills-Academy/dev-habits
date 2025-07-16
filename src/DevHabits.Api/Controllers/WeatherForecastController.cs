@@ -5,6 +5,8 @@ namespace DevHabits.Api.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Produces("application/json")]
+[Tags("WeatherForecast")]
 public class WeatherForecastController(ILogger<WeatherForecastController> logger) : ControllerBase
 {
     private static readonly string[] Summaries =
@@ -14,7 +16,16 @@ public class WeatherForecastController(ILogger<WeatherForecastController> logger
 
     private readonly ILogger<WeatherForecastController> _logger = logger ?? throw new ArgumentNullException(nameof(logger));
 
+    /// <summary>
+    /// Retrieves weather forecast data
+    /// </summary>
+    /// <returns>A collection of weather forecasts</returns>
+    /// <response code="200">Returns the weather forecast data</response>
+    /// <remarks>
+    /// This is a demo endpoint that returns sample weather data.
+    /// </remarks>
     [HttpGet(Name = "GetWeatherForecast")]
+    [ProducesResponseType<IEnumerable<WeatherForecast>>(StatusCodes.Status200OK)]
     public IEnumerable<WeatherForecast> Get()
     {
 

@@ -8,6 +8,7 @@ using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
+using Scalar.AspNetCore;
 
 WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +22,43 @@ builder.Services.AddControllers(options =>
     new CamelCasePropertyNamesContractResolver())
 .AddXmlSerializerFormatters();
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer((document, context, cancellationToken) =>
+    {
+        document.Info = new()
+        {
+            Title = "DevHabits API",
+            Version = "v1.0.0",
+            Description = "A comprehensive API for tracking and managing daily habits with progress monitoring, milestone tracking, and flexible frequency configuration.",
+            Contact = new()
+            {
+                Name = "DevHabits API Support",
+                Email = "support@devhabits.com"
+            },
+            License = new()
+            {
+                Name = "MIT License",
+                Url = new("https://opensource.org/licenses/MIT")
+            }
+        };
+
+        document.Servers =
+        [
+           new() { Url = "https://localhost:5002", Description = "Development server" },
+           new() { Url = "https://localhost:5001", Description = "Development server (HTTP)" }
+        ];
+
+        // Add tags for better organization
+        document.Tags =
+        [
+            new() { Name = "Habits", Description = "Operations related to habit management" },
+            new() { Name = "WeatherForecast", Description = "Demo weather forecast operations" }
+        ];
+
+        return Task.CompletedTask;
+    });
+});
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(
@@ -52,6 +89,20 @@ WebApplication? app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    // Add Scalar UI
+    app.MapScalarApiReference();
+
+    //app.MapScalarApiReference(options =>
+    //{
+    //    options
+    //        .WithTitle("DevHabits API Documentation")
+    //        .WithTheme(ScalarTheme.BluePlanet)
+    //        .WithPreferredScheme("https")
+    //        .WithSearchHotKey("Ctrl+K")
+    //        .WithModels(true)
+    //        .WithDownloadButton(true);
+    //});
 
     await app.ApplyMigrationsAsync();
 }
