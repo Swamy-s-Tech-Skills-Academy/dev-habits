@@ -1,4 +1,4 @@
-namespace DevHabits.Api;
+namespace DevHabits.Api.Models;
 
 public class WeatherForecast
 {

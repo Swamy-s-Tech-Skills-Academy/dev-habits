@@ -104,6 +104,7 @@ if (app.Environment.IsDevelopment())
     //        .WithDownloadButton(true);
     //});
 
+    // Only for local development
     await app.ApplyMigrationsAsync();
 }
 
