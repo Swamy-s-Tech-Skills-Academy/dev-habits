@@ -16,7 +16,7 @@ services:
       - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
 
   devhabit.postgres:
-    image: postgres:latest
+    image: postgres:17.2 # or latest
     environment:
       POSTGRES_DB: devhabit
       POSTGRES_USER: postgres

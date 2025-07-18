@@ -1,4 +1,5 @@
 ﻿using System.Security.Cryptography;
+using DevHabits.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevHabits.Api.Controllers;
