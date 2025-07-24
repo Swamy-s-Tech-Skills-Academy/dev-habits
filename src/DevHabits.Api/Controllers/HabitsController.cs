@@ -85,22 +85,22 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         return CreatedAtAction(nameof(GetHabit), new { id = habitDto.Id }, habitDto);
     }
 
-    //[HttpPut("{id}")]
-    //public async Task<ActionResult> UpdateHabit(string id, UpdateHabitDto updateHabitDto)
-    //{
-    //    Habit? habit = await dbContext.Habits.FirstOrDefaultAsync(h => h.Id == id);
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateHabit(string id, UpdateHabitDto updateHabitDto)
+    {
+        Habit? habit = await dbContext.Habits.FirstOrDefaultAsync(h => h.Id == id);
 
-    //    if (habit is null)
-    //    {
-    //        return NotFound();
-    //    }
+        if (habit is null)
+        {
+            return NotFound();
+        }
 
-    //    habit.UpdateFromDto(updateHabitDto);
+        habit.UpdateFromDto(updateHabitDto);
 
-    //    await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
-    //    return NoContent();
-    //}
+        return NoContent();
+    }
 
     //[HttpPatch("{id}")]
     //public async Task<ActionResult> PatchHabit(string id, JsonPatchDocument<HabitDto> patchDocument)
