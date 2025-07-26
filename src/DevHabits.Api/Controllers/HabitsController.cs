@@ -1,6 +1,7 @@
 ﻿using DevHabits.Api.Database;
 using DevHabits.Api.DTOs.Habits;
 using DevHabits.Api.Entities;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -85,50 +86,48 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         return CreatedAtAction(nameof(GetHabit), new { id = habitDto.Id }, habitDto);
     }
 
-    //[HttpPut("{id}")]
-    //public async Task<ActionResult> UpdateHabit(string id, UpdateHabitDto updateHabitDto)
-    //{
-    //    Habit? habit = await dbContext.Habits.FirstOrDefaultAsync(h => h.Id == id);
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateHabit(string id, UpdateHabitDto updateHabitDto)
+    {
+        Habit? habit = await dbContext.Habits.FirstOrDefaultAsync(h => h.Id == id);
+        if (habit is null)
+        {
+            return NotFound();
+        }
 
-    //    if (habit is null)
-    //    {
-    //        return NotFound();
-    //    }
+        habit.UpdateFromDto(updateHabitDto);
 
-    //    habit.UpdateFromDto(updateHabitDto);
+        await dbContext.SaveChangesAsync();
 
-    //    await dbContext.SaveChangesAsync();
+        return NoContent();
+    }
 
-    //    return NoContent();
-    //}
+    [HttpPatch("{id}")]
+    public async Task<ActionResult> PatchHabit(string id, JsonPatchDocument<HabitDto> patchDocument)
+    {
+        Habit? habit = await dbContext.Habits.FirstOrDefaultAsync(h => h.Id == id);
+        if (habit is null)
+        {
+            return NotFound();
+        }
 
-    //[HttpPatch("{id}")]
-    //public async Task<ActionResult> PatchHabit(string id, JsonPatchDocument<HabitDto> patchDocument)
-    //{
-    //    Habit? habit = await dbContext.Habits.FirstOrDefaultAsync(h => h.Id == id);
+        HabitDto habitDto = habit.ToDto();
 
-    //    if (habit is null)
-    //    {
-    //        return NotFound();
-    //    }
+        patchDocument.ApplyTo(habitDto, ModelState);
 
-    //    HabitDto habitDto = habit.ToDto();
+        if (!TryValidateModel(habitDto))
+        {
+            return ValidationProblem(ModelState);
+        }
 
-    //    patchDocument.ApplyTo(habitDto, ModelState);
+        habit.Name = habitDto.Name;
+        habit.Description = habitDto.Description;
+        habit.UpdatedAtUtc = DateTime.UtcNow;
 
-    //    if (!TryValidateModel(habitDto))
-    //    {
-    //        return ValidationProblem(ModelState);
-    //    }
+        await dbContext.SaveChangesAsync();
 
-    //    habit.Name = habitDto.Name;
-    //    habit.Description = habitDto.Description;
-    //    habit.UpdatedAtUtc = DateTime.UtcNow;
-
-    //    await dbContext.SaveChangesAsync();
-
-    //    return NoContent();
-    //}
+        return NoContent();
+    }
 
     //[HttpDelete("{id}")]
     //public async Task<ActionResult> DeleteHabit(string id)

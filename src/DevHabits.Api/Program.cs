@@ -20,7 +20,7 @@ builder.Services.AddControllers(options =>
 })
 .AddNewtonsoftJson(options => options.SerializerSettings.ContractResolver =
     new CamelCasePropertyNamesContractResolver())
-.AddXmlSerializerFormatters();
+.AddXmlSerializerFormatters();  // Content negotiation for XML
 
 builder.Services.AddOpenApi(options =>
 {
