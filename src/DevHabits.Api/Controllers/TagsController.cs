@@ -1,119 +1,120 @@
-﻿//using DevHabit.Api.Database;
-//using DevHabit.Api.DTOs.Habits;
-//using DevHabit.Api.DTOs.Tags;
-//using DevHabit.Api.Entities;
-//using FluentValidation;
-//using FluentValidation.Results;
-//using Microsoft.AspNetCore.Mvc;
-//using Microsoft.AspNetCore.Mvc.Infrastructure;
-//using Microsoft.EntityFrameworkCore;
+﻿using DevHabits.Api.Database;
+using DevHabits.Api.DTOs.Tags;
+using DevHabits.Api.Entities;
+using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
-//namespace DevHabit.Api.Controllers;
+namespace DevHabit.Api.Controllers;
 
-//[ApiController]
-//[Route("tags")]
-//public sealed class TagsController(ApplicationDbContext dbContext) : ControllerBase
-//{
-//    [HttpGet]
-//    public async Task<ActionResult<TagsCollectionDto>> GetTags()
-//    {
-//        List<TagDto> tags = await dbContext
-//            .Tags
-//            .Select(TagQueries.ProjectToDto())
-//            .ToListAsync();
+[ApiController]
+[Route("api/tags")]
+[Produces("application/json")]
+[Tags("Tags")]
+public sealed class TagsController(ApplicationDbContext dbContext) : ControllerBase
+{
+    [HttpGet]
+    public async Task<ActionResult<TagsCollectionDto>> GetTags()
+    {
+        List<TagDto> tags = await dbContext
+            .Tags
+            .Select(TagQueries.ProjectToDto())
+            .ToListAsync();
 
-//        var habitsCollectionDto = new TagsCollectionDto
-//        {
-//            Items = tags
-//        };
+        var habitsCollectionDto = new TagsCollectionDto
+        {
+            Items = tags
+        };
 
-//        return Ok(habitsCollectionDto);
-//    }
+        return Ok(habitsCollectionDto);
+    }
 
-//    [HttpGet("{id}")]
-//    public async Task<ActionResult<TagDto>> GetTag(string id)
-//    {
-//        TagDto? tag = await dbContext
-//            .Tags
-//            .Where(h => h.Id == id)
-//            .Select(TagQueries.ProjectToDto())
-//            .FirstOrDefaultAsync();
+    [HttpGet("{id}")]
+    public async Task<ActionResult<TagDto>> GetTag(string id)
+    {
+        TagDto? tag = await dbContext
+            .Tags
+            .Where(h => h.Id == id)
+            .Select(TagQueries.ProjectToDto())
+            .FirstOrDefaultAsync();
 
-//        if (tag is null)
-//        {
-//            return NotFound();
-//        }
+        if (tag is null)
+        {
+            return NotFound();
+        }
 
-//        return Ok(tag);
-//    }
+        return Ok(tag);
+    }
 
-//    [HttpPost]
-//    public async Task<ActionResult<TagDto>> CreateTag(
-//        CreateTagDto createTagDto,
-//        IValidator<CreateTagDto> validator,
-//        ProblemDetailsFactory problemDetailsFactory)
-//    {
-//        ValidationResult validationResult = await validator.ValidateAsync(createTagDto);
+    [HttpPost]
+    public async Task<ActionResult<TagDto>> CreateTag(
+        CreateTagDto createTagDto,
+        IValidator<CreateTagDto> validator,
+        ProblemDetailsFactory problemDetailsFactory)
+    {
+        ValidationResult validationResult = await validator.ValidateAsync(createTagDto);
 
-//        if (!validationResult.IsValid)
-//        {
-//            ProblemDetails problem = problemDetailsFactory.CreateProblemDetails(
-//                HttpContext,
-//                StatusCodes.Status400BadRequest);
-//            problem.Extensions.Add("errors", validationResult.ToDictionary());
+        if (!validationResult.IsValid)
+        {
+            ProblemDetails problem = problemDetailsFactory.CreateProblemDetails(
+                HttpContext,
+                StatusCodes.Status400BadRequest);
+            problem.Extensions.Add("errors", validationResult.ToDictionary());
 
-//            return BadRequest(problem);
-//        }
+            return BadRequest(problem);
+        }
 
-//        Tag tag = createTagDto.ToEntity();
+        Tag tag = createTagDto.ToEntity();
 
-//        if (await dbContext.Tags.AnyAsync(t => t.Name == tag.Name))
-//        {
-//            return Problem(
-//                detail: $"The tag '{tag.Name}' already exists",
-//                statusCode: StatusCodes.Status409Conflict);
-//        }
+        if (await dbContext.Tags.AnyAsync(t => t.Name == tag.Name))
+        {
+            return Problem(
+                detail: $"The tag '{tag.Name}' already exists",
+                statusCode: StatusCodes.Status409Conflict);
+        }
 
-//        dbContext.Tags.Add(tag);
+        dbContext.Tags.Add(tag);
 
-//        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
-//        TagDto tagDto = tag.ToDto();
+        TagDto tagDto = tag.ToDto();
 
-//        return CreatedAtAction(nameof(GetTag), new { id = tagDto.Id }, tagDto);
-//    }
+        return CreatedAtAction(nameof(GetTag), new { id = tagDto.Id }, tagDto);
+    }
 
-//    [HttpPut("{id}")]
-//    public async Task<ActionResult> UpdateTag(string id, UpdateTagDto updateTagDto)
-//    {
-//        Tag? tag = await dbContext.Tags.FirstOrDefaultAsync(h => h.Id == id);
+    [HttpPut("{id}")]
+    public async Task<ActionResult> UpdateTag(string id, UpdateTagDto updateTagDto)
+    {
+        Tag? tag = await dbContext.Tags.FirstOrDefaultAsync(h => h.Id == id);
 
-//        if (tag is null)
-//        {
-//            return NotFound();
-//        }
+        if (tag is null)
+        {
+            return NotFound();
+        }
 
-//        tag.UpdateFromDto(updateTagDto);
+        tag.UpdateFromDto(updateTagDto);
 
-//        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
-//        return NoContent();
-//    }
+        return NoContent();
+    }
 
-//    [HttpDelete("{id}")]
-//    public async Task<ActionResult> DeleteTag(string id)
-//    {
-//        Tag? tag = await dbContext.Tags.FirstOrDefaultAsync(h => h.Id == id);
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteTag(string id)
+    {
+        Tag? tag = await dbContext.Tags.FirstOrDefaultAsync(h => h.Id == id);
 
-//        if (tag is null)
-//        {
-//            return NotFound();
-//        }
+        if (tag is null)
+        {
+            return NotFound();
+        }
 
-//        dbContext.Tags.Remove(tag);
+        dbContext.Tags.Remove(tag);
 
-//        await dbContext.SaveChangesAsync();
+        await dbContext.SaveChangesAsync();
 
-//        return NoContent();
-//    }
-//}
+        return NoContent();
+    }
+}
