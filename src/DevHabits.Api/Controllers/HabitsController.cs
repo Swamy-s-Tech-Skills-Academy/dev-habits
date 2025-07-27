@@ -129,20 +129,19 @@ public sealed class HabitsController(ApplicationDbContext dbContext) : Controlle
         return NoContent();
     }
 
-    //[HttpDelete("{id}")]
-    //public async Task<ActionResult> DeleteHabit(string id)
-    //{
-    //    Habit? habit = await dbContext.Habits.FirstOrDefaultAsync(h => h.Id == id);
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteHabit(string id)
+    {
+        Habit? habit = await dbContext.Habits.FirstOrDefaultAsync(h => h.Id == id);
+        if (habit is null)
+        {
+            return NotFound();
+        }
 
-    //    if (habit is null)
-    //    {
-    //        return NotFound();
-    //    }
+        dbContext.Habits.Remove(habit);
 
-    //    dbContext.Habits.Remove(habit);
+        await dbContext.SaveChangesAsync();
 
-    //    await dbContext.SaveChangesAsync();
-
-    //    return NoContent();
-    //}
+        return NoContent();
+    }
 }
