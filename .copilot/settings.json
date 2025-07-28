@@ -1,0 +1,65 @@
+{
+    "completions": {
+        "enabled": true,
+        "maxSuggestions": 3,
+        "showSuggestionsOnTrigger": true
+    },
+    "chat": {
+        "enabled": true,
+        "contextFiles": [
+            ".github/copilot-instructions.md",
+            "README.md",
+            "docs/**/*.md"
+        ]
+    },
+    "language": {
+        "csharp": {
+            "enabled": true,
+            "style": "Microsoft",
+            "conventions": {
+                "naming": "PascalCase",
+                "documentation": "xmldoc"
+            }
+        },
+        "dockerfile": {
+            "enabled": true
+        },
+        "yaml": {
+            "enabled": true
+        },
+        "json": {
+            "enabled": true
+        }
+    },
+    "projects": {
+        "devhabits-api": {
+            "type": "aspnet-core",
+            "framework": "net10.0",
+            "database": "postgresql",
+            "orm": "entityframework",
+            "patterns": [
+                "clean-architecture",
+                "repository",
+                "dto"
+            ]
+        }
+    },
+    "features": {
+        "inlineChat": true,
+        "codeExplanation": true,
+        "testGeneration": true,
+        "refactoring": true
+    },
+    "exclusions": {
+        "files": [
+            "**/bin/**",
+            "**/obj/**",
+            "**/node_modules/**",
+            "**/.git/**"
+        ],
+        "patterns": [
+            "*.generated.cs",
+            "*.designer.cs"
+        ]
+    }
+}
