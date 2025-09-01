@@ -18,17 +18,19 @@ DevHabits is a comprehensive .NET 10.0 API for tracking and managing daily habit
 - **Habit**: Main entity with name, description, type (Binary/Measurable), frequency, target, status, milestones
 - **Tag**: Categorization labels for habits
 - **HabitTag**: Many-to-many relationship between habits and tags
-- **Frequency**: Defines repetition pattern (Daily, Weekly, Monthly) with times per period
-- **Target**: Goal definition with value and unit (minutes, steps, pages, etc.)
-- **Milestone**: Progress tracking with target and current values
+- **Frequency**: Value object defining repetition pattern (Daily, Weekly, Monthly) with TimesPerPeriod
+- **Target**: Value object for goal definition with value and unit (minutes, steps, pages, etc.)
+- **Milestone**: Value object for progress tracking with target and current values
 
 ### Business Rules
 
 - Habit names: 3-100 characters required
 - Binary habits: Use sessions/tasks units only
 - Measurable habits: Support various units (minutes, hours, steps, km, cal, pages, books)
-- Frequency: 1-10 times per period maximum
+- Frequency: TimesPerPeriod must be greater than 0
 - All entities have audit fields (CreatedAtUtc, UpdatedAtUtc)
+- Entity IDs use Version 7 GUIDs with prefixes (h* for habits, t* for tags)
+- Value objects (Frequency, Target, Milestone) are owned entities
 
 ## Architecture & Technology Stack
 
