@@ -1,15 +1,27 @@
 {
     "completions": {
         "enabled": true,
-        "maxSuggestions": 3,
-        "showSuggestionsOnTrigger": true
+        "maxSuggestions": 5,
+        "showSuggestionsOnTrigger": true,
+        "enableAutoImports": true,
+        "enableSnippets": true
     },
     "chat": {
         "enabled": true,
         "contextFiles": [
             ".github/copilot-instructions.md",
+            ".github/prompts/**/*.md",
             "README.md",
-            "docs/**/*.md"
+            "docs/**/*.md",
+            "src/DevHabits.Api/Entities/*.cs",
+            "src/DevHabits.Api/DTOs/**/*.cs",
+            "Directory.Build.props",
+            "Directory.Packages.props"
+        ],
+        "excludeFiles": [
+            "**/bin/**",
+            "**/obj/**",
+            "**/Migrations/**/*.cs"
         ]
     },
     "language": {
@@ -18,48 +30,146 @@
             "style": "Microsoft",
             "conventions": {
                 "naming": "PascalCase",
-                "documentation": "xmldoc"
+                "documentation": "xmldoc",
+                "nullableReferenceTypes": true,
+                "implicitUsings": true,
+                "primaryConstructors": true
+            },
+            "features": {
+                "recordTypes": true,
+                "patternMatching": true,
+                "asyncStreams": true,
+                "requiredProperties": true
             }
         },
         "dockerfile": {
-            "enabled": true
+            "enabled": true,
+            "multiStage": true,
+            "healthChecks": true
         },
         "yaml": {
-            "enabled": true
+            "enabled": true,
+            "githubActions": true
         },
         "json": {
-            "enabled": true
+            "enabled": true,
+            "appsettings": true,
+            "openapi": true
+        },
+        "sql": {
+            "enabled": true,
+            "postgresql": true
         }
     },
     "projects": {
         "devhabits-api": {
-            "type": "aspnet-core",
+            "type": "aspnet-core-webapi",
             "framework": "net10.0",
-            "database": "postgresql",
-            "orm": "entityframework",
+            "features": [
+                "minimal-apis",
+                "openapi",
+                "scalar-ui",
+                "primary-constructors",
+                "nullable-reference-types"
+            ],
+            "database": {
+                "provider": "postgresql",
+                "orm": "entityframework-core",
+                "version": "9.0",
+                "namingConvention": "snake_case",
+                "migrations": true
+            },
+            "validation": {
+                "framework": "fluentvalidation",
+                "strictMode": true
+            },
+            "observability": {
+                "telemetry": "opentelemetry",
+                "logging": "ilogger",
+                "monitoring": "azure-monitor"
+            },
             "patterns": [
                 "clean-architecture",
-                "repository",
-                "dto"
-            ]
+                "dto-pattern",
+                "entity-configuration",
+                "query-projection",
+                "validation-pattern"
+            ],
+            "domain": {
+                "entities": [
+                    "Habit",
+                    "Tag",
+                    "HabitTag"
+                ],
+                "valueObjects": [
+                    "Frequency",
+                    "Target",
+                    "Milestone"
+                ],
+                "enums": [
+                    "HabitType",
+                    "HabitStatus",
+                    "FrequencyType"
+                ]
+            }
         }
     },
     "features": {
         "inlineChat": true,
         "codeExplanation": true,
-        "testGeneration": true,
-        "refactoring": true
+        "testGeneration": {
+            "enabled": true,
+            "framework": "xunit",
+            "mockingFramework": "nsubstitute",
+            "integrationTests": true,
+            "unitTests": true
+        },
+        "refactoring": true,
+        "codeReview": true,
+        "documentation": {
+            "xmlDocs": true,
+            "openapi": true,
+            "markdown": true
+        }
+    },
+    "codeStyle": {
+        "indentation": "spaces",
+        "indentSize": 4,
+        "endOfLine": "crlf",
+        "charset": "utf-8",
+        "insertFinalNewline": true,
+        "trimTrailingWhitespace": true
     },
     "exclusions": {
         "files": [
             "**/bin/**",
             "**/obj/**",
             "**/node_modules/**",
-            "**/.git/**"
+            "**/.git/**",
+            "**/Migrations/**",
+            "**/*.Designer.cs",
+            "**/*.generated.cs"
         ],
         "patterns": [
-            "*.generated.cs",
-            "*.designer.cs"
+            "*.user",
+            "*.suo",
+            "*.cache",
+            ".vs/**"
         ]
+    },
+    "templates": {
+        "controller": "api-controller-with-documentation",
+        "entity": "clean-entity-with-navigation",
+        "dto": "record-dto-with-validation",
+        "validator": "fluentvalidation-comprehensive",
+        "test": "xunit-with-mocking"
+    },
+    "suggestions": {
+        "preferAsyncMethods": true,
+        "preferPrimaryConstructors": true,
+        "preferRecordTypes": true,
+        "preferNullableReferenceTypes": true,
+        "preferExpressionBodiedMembers": true,
+        "preferCollectionExpressions": true
     }
 }
