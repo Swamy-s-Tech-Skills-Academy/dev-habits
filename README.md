@@ -13,6 +13,7 @@ I am learning Dev Habits .NET solution from different Video Courses, Books, and 
 ## EF Migrations
 
 ```powershell
-Add-Migration Add_Habits -Context DevHabitDbContext -o Migrations/Application
-Update-Database -Context DevHabitDbContext
+Add-Migration Add_Habits -Context ApplicationDbContext -o Migrations/Application
+Add-Migration Add_HabitTags -Context ApplicationDbContext -o Migrations/Application
+Update-Database -Context ApplicationDbContext
 ```
