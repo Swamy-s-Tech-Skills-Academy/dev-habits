@@ -4,10 +4,10 @@ using DevHabits.Api.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevHabit.Api.Controllers;
+namespace DevHabits.Api.Controllers;
 
 [ApiController]
-[Route("habits/{habitId}/tags")]
+[Route("api/habits/{habitId}/tags")]
 public sealed class HabitTagsController(ApplicationDbContext dbContext) : ControllerBase
 {
     [HttpPut]
