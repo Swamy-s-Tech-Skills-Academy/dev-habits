@@ -32,3 +32,11 @@ public sealed record HabitWithTagsDto
 
     public required string[] Tags { get; init; }
 }
+
+
+// HabitDto should not be sealed record inheritance because of the way System.Text.Json works with polymorphic serialization.
+//public sealed record HabitWithTagsDto : HabitDto
+//{
+//    [JsonProperty(Order = int.MaxValue)]
+//    public required string[] Tags { get; init; }
+//}
